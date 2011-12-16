@@ -29,7 +29,7 @@ var Picker = new Class({
 		showOnInit: true,
 		columns: 1,
 		footer: false,
-		haveClose: false
+		haveClose: true
 	},
 
 	initialize: function(options){
@@ -72,7 +72,7 @@ var Picker = new Class({
 			'aria-atomic': 'true'
 		}).inject(title);
 
-		if(this.haveClose)
+		if(this.options.haveClose)
 		{
 			this.closeButton = new Element('div.closeButton[text=x][role=button]')
 				.addEvent('click', this.close.pass(false, this))

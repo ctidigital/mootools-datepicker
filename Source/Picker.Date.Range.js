@@ -26,7 +26,7 @@ Picker.Date.Range = new Class({
 		},
 		footer: true,
 		columns: 3,
-		persistPicker: true
+		persistPicker: false
 	},
 
 	getInputDate: function(input){
