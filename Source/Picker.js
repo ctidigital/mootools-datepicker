@@ -28,7 +28,8 @@ var Picker = new Class({
 		draggable: true,
 		showOnInit: true,
 		columns: 1,
-		footer: false
+		footer: false,
+		haveClose: false
 	},
 
 	initialize: function(options){
@@ -71,10 +72,13 @@ var Picker = new Class({
 			'aria-atomic': 'true'
 		}).inject(title);
 
-		this.closeButton = new Element('div.closeButton[text=x][role=button]')
-			.addEvent('click', this.close.pass(false, this))
-			.inject(header);
-
+		if(this.haveClose)
+		{
+			this.closeButton = new Element('div.closeButton[text=x][role=button]')
+				.addEvent('click', this.close.pass(false, this))
+				.inject(header);
+		}
+		
 		// Build the body of the picker
 		var body = this.body = new Element('div.body').inject(picker);
 

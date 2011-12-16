@@ -25,7 +25,8 @@ Picker.Date.Range = new Class({
 			}, this).join(' - '));
 		},
 		footer: true,
-		columns: 3
+		columns: 3,
+		persistPicker: true
 	},
 
 	getInputDate: function(input){
@@ -94,6 +95,8 @@ Picker.Date.Range = new Class({
 			this.endDate = date;
 		}
 		this.updateRangeSelection();
+		// Update the range automatically
+		this.selectRange();
 	},
 
 	selectRange: function(){
@@ -106,7 +109,9 @@ Picker.Date.Range = new Class({
 		})).fireEvent('change');
 
 		this.fireEvent('select', dates, input);
-		this.close();
+		if(!this.options.persistPicker) {
+			this.close();
+		}
 		return this;
 	},
 

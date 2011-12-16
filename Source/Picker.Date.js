@@ -58,7 +58,8 @@ this.DatePicker = Picker.Date = new Class({
 		},
 		time_title: function(date, options){
 			return (options.pickOnly == 'time') ? Locale.get('DatePicker.select_a_time') : date.format('%d %B, %Y');
-		}
+		},
+		persistPicker: true
 	},
 
 	initialize: function(attachTo, options){
@@ -377,7 +378,9 @@ this.DatePicker = Picker.Date = new Class({
 		}, this);
 
 		this.fireEvent('select', [date].concat(inputs));
-		this.close();
+		if(!this.options.persistPicker) {
+			this.close();
+		}
 		return this;
 	}
 
@@ -653,16 +656,20 @@ var isUnavailable = function(type, date, options){
 	month = date.get('month') + 1;
 	day = date.get('date');
 
-	var dateAllow = (minDate && date < minDate) || (minDate && date > maxDate);
-	if (availableDates != null){
-		dateAllow = dateAllow
-			|| availableDates[year] == null
-			|| availableDates[year][month] == null
-			|| !availableDates[year][month].contains(day);
-		if (options.invertAvailable) dateAllow = !dateAllow;
+	if((minDate && date < minDate) || (minDate && date > maxDate)) {
+		return true;
+	}
+	
+	if(availableDates != null
+			&& (availableDates[year] == null
+				|| availableDates[year][month] == null
+				|| !availableDates[year][month].contains(day))
+	)
+	{
+		return !options.invertAvailable;
 	}
 
-	return dateAllow;
+	return options.invertAvailable;
 };
 
 })();

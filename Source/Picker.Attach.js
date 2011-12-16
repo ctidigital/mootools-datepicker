@@ -32,8 +32,10 @@ Picker.Attach = new Class({
 		this.inputs = [];
 
 		var documentEvent = function(event){
-			if (this.attachedElements.contains(event.target)) return;
-			this.close();
+			if(!this.options.persistPicker) {
+				if (this.attachedElements.contains(event.target)) return;
+				this.close();
+			}
 		}.bind(this);
 		var document = this.picker.getDocument().addEvent('click', documentEvent);
 
