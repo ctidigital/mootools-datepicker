@@ -59,7 +59,7 @@ this.DatePicker = Picker.Date = new Class({
 		time_title: function(date, options){
 			return (options.pickOnly == 'time') ? Locale.get('DatePicker.select_a_time') : date.format('%d %B, %Y');
 		},
-		persistPicker: true
+		persistPicker: false
 	},
 
 	initialize: function(attachTo, options){
